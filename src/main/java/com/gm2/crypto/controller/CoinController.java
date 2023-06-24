@@ -51,9 +51,19 @@ public class CoinController {
     public ResponseEntity post(@RequestBody Coin coin){
         try{
             coin.setDateTime(new Timestamp(System.currentTimeMillis()));
-            return new ResponseEntity<>(coinRepository.insert(coin), HttpStatus.CREATED);
+            return new ResponseEntity<>(coinRepository.insert(coin), HttpStatus.OK);
         }catch (Exception exception){
             return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping()
+    public ResponseEntity update(@RequestBody Coin coin){
+        try{
+            coin.setDateTime(new Timestamp(System.currentTimeMillis()));
+            return new ResponseEntity<>(coinRepository.update(coin), HttpStatus.CREATED);
+        }catch (Exception exception){
+            return new ResponseEntity<>(exception.getMessage(), HttpStatus.NO_CONTENT);
         }
     }
 
