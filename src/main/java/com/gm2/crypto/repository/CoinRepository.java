@@ -1,5 +1,6 @@
 package com.gm2.crypto.repository;
 
+import com.gm2.crypto.dto.CoinDTO;
 import com.gm2.crypto.entity.Coin;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -36,11 +37,11 @@ public class CoinRepository {
         return coin;
     }
 
-    public List<Coin> getAll(){
-        return jdbcTemplate.query(SELECT_ALL, new RowMapper<Coin>() {
+    public List<CoinDTO> getAll(){
+        return jdbcTemplate.query(SELECT_ALL, new RowMapper<CoinDTO>() {
             @Override
-            public Coin mapRow(ResultSet rs, int rowNum) throws SQLException {
-                Coin coin = new Coin();
+            public CoinDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+                CoinDTO coin = new CoinDTO();
                 coin.setName(rs.getString("name"));
                 coin.setQuantity(rs.getBigDecimal("quantity"));
 
