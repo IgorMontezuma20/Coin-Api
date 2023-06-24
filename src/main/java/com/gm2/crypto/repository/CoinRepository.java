@@ -1,15 +1,18 @@
 package com.gm2.crypto.repository;
 
 import com.gm2.crypto.entity.Coin;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
-import java.sql.Array;
-
+@Repository
+@EnableAutoConfiguration
 public class CoinRepository {
 
-    private static String INSERT = "insert into coin (name, price, quantity, datetime) values=(?,?,?,?)";
+    //private static String INSERT = "insert into coin (name, price, quantity, datetime) values (?,?,?,?)";
+    private static String INSERT2 = "insert into coin (name, price, quantity, datetime) values(?,?,?,?)";
 
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     public CoinRepository(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
@@ -22,7 +25,7 @@ public class CoinRepository {
                 coin.getQuantity(),
                 coin.getDateTime()
         };
-        jdbcTemplate.update(INSERT, attr);
+        jdbcTemplate.update(INSERT2, attr);
         return coin;
     }
 }
