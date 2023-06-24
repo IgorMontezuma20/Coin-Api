@@ -17,6 +17,8 @@ public class CoinController {
     private CoinRepository coinRepository;
 
 
+
+
     @PostMapping()
     public ResponseEntity post(@RequestBody Coin coin){
         try{
@@ -32,4 +34,13 @@ public class CoinController {
         return new ResponseEntity<>(coinRepository.getAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/{name}")
+    public ResponseEntity getByName( @PathVariable String name){
+
+        try{
+            return new ResponseEntity<>(coinRepository.getByName(name), HttpStatus.OK);
+        }catch (Exception exception){
+            return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
