@@ -3,12 +3,10 @@ package com.gm2.crypto.controller;
 import com.gm2.crypto.entity.Coin;
 import com.gm2.crypto.repository.CoinRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @RestController
@@ -56,10 +54,12 @@ public class CoinController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable int id){
+        boolean response = false;
         try {
-            return new ResponseEntity<>(coinRepository.remove(id), HttpStatus.OK);
+            response = coinRepository.remove(id);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }catch (Exception exception){
-            return new ResponseEntity<>(exception.getMessage(), HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
         }
     }
 }
