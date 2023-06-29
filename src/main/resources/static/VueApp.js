@@ -1,5 +1,7 @@
 const { createApp } = Vue;
 
+const baseUrl = "http://localhost:8080/coin"
+
 const mainContainer = {
     data(){
         return {
@@ -7,16 +9,21 @@ const mainContainer = {
         }
     },
     mounted(){
-        this.coins = [
-            {
-                name: "BITCOIN",
-                quantity: 0.003
-            },
-            {
-                name: "TESTE",
-                quantity: 0.004
-            }
-        ]
+        this.showAllCoins()
+    },
+    methods: {
+        showAllCoins(){
+            axios
+                .get(baseUrl)
+                .then(response => {
+                    response.data.forEach(item => {
+                        this.coins.push({
+                            name: item.name,
+                            quantity: item.quantity
+                        })
+                    })
+                })
+        }
     }
 }
 
