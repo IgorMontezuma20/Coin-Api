@@ -5,7 +5,15 @@ const baseUrl = "http://localhost:8080/coin"
 const mainContainer = {
     data(){
         return {
-            coins:[]
+            coins:[],
+            formCoin: {
+                isNew: true,
+                name : '',
+                price: '',
+                quantity: '',
+                title: 'Cadastrar nova transação',
+                button: 'Cadastrar'
+            }
         }
     },
     mounted(){
@@ -17,10 +25,7 @@ const mainContainer = {
                 .get(baseUrl)
                 .then(response => {
                     response.data.forEach(item => {
-                        this.coins.push({
-                            name: item.name,
-                            quantity: item.quantity
-                        })
+                        this.coins.push(item)
                     })
                 })
         }
